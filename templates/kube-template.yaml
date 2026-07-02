@@ -42,7 +42,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: go-api
-          image: moises0403/golang-api:latest
+          image: moises0403/golang-api:v2
           imagePullPolicy: Always
 
           envFrom:
