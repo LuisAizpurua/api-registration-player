@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 type Message struct {
@@ -35,11 +36,19 @@ func status(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func showEnv() string {
+	nodeIP := os.Getenv("NODE_IP")
+	svcPort := os.Getenv("SVC_PORT")
+
+	return fmt.Sprintf("http://%s:%s", nodeIP, svcPort)
+}
+
 func main() {
 	http.HandleFunc("/hello", handler)
 	http.HandleFunc("/health", status)
 
-	fmt.Println("Servidor iniciado puerto 8080")
+	fmt.Println("Contenedor iniciado en el puerto 8080")
+	fmt.Println(showEnv())
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
