@@ -18,10 +18,11 @@ type Health struct {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	name := os.Getenv("NAME")
 	w.Header().Set("Content-Type", "application/json")
 
 	response := Message{
-		Message:  "Hola, mutedev",
+		Message:  "Hola, " + name,
 		Languaje: "golang",
 	}
 

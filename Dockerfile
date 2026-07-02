@@ -14,6 +14,7 @@ RUN go build -o main .
 
 ENV NODE_IP=192.168.49.2
 ENV SVC_PORT=30090
+ENV NAME=mutedevops
 
 USER appuser
 

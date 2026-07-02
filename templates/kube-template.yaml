@@ -4,6 +4,7 @@ metadata:
   name: go-enviroment
 data:
   SVC_PORT: "8090"
+  NAME: "MUTEDEVOPS_pty"
 
 ---
 apiVersion: apps/v1
