@@ -1,0 +1,16 @@
+# binarios
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# build
+/bin/
+/dist/
+
+# Go modules cache (opcional en proyectos simples)
+vendor/
+
+# logs
+*.log
