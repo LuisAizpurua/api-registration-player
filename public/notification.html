@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birria Futbol</title>
+  <link rel="icon" href="/public/favicon_64.png" type="image/png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      overflow: hidden;
+      position: relative;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #e8f5e9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+    }
+    h1 {
+      font-size: 1.4rem;
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #555;
+      font-size: .95rem;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    button {
+      padding: 12px 32px;
+      border: none;
+      border-radius: 10px;
+      background: #2d9cdb;
+      color: #fff;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    button:hover { background: #1f7eb4; }
+
+    .confetti-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0.85;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0.3;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">✅</div>
+    <h1>{{.Title}}</h1>
+    <p>{{.Description}}</p>
+  </div>
+</body>
+
+<div class="confetti-container" id="confettiContainer"></div>
+
+<script>
+(function() {
+  const container = document.getElementById("confettiContainer");
+  const colors = ["#ff6b6b","#ffd93d","#6bcb77","#4d96ff","#ff6b9d","#c084fc","#fb923c","#34d399"];
+  const shapes = ["circle","square"];
+
+  for (let i = 0; i < 150; i++) {
+    const el = document.createElement("div");
+    el.className = "confetti";
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const isCircle = shapes[Math.floor(Math.random() * shapes.length)] === "circle";
+    const size = 6 + Math.random() * 8;
+    const left = Math.random() * 100;
+    const dur = 2 + Math.random() * 3;
+    const delay = Math.random() * 2;
+
+    el.style.cssText = `
+      left: ${left}%;
+      width: ${size}px;
+      height: ${isCircle ? size : size * 0.6}px;
+      background: ${color};
+      border-radius: ${isCircle ? "50%" : "2px"};
+      animation-duration: ${dur}s;
+      animation-delay: ${delay}s;
+    `;
+    container.appendChild(el);
+  }
+})();
+</script>
+</html>

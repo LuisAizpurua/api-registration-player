@@ -5,17 +5,30 @@ metadata:
 data:
   SVC_PORT: "8090"
   NAME: "MUTEDEVOPS_pty"
-
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: credentials
+stringData:
+  APIKEY: sb_publishable_a8728I7obHYwwnUpDH9vpw_B1Zp_Xeo
+  ID: lvebgyjzcskmiqnthuua
+  EMAIL: moisesluis0403@gmail.com
+  PASSWORD: _Moises0403
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deploy-app-go
+  namespace: default
   labels:
     app: go-api
     env: test
+  annotations:
+    kubernetes.io/change-cause: "Fix: Adding template html new and connection with database - version 3"
 
 spec:
+  revisionHistoryLimit: 5
   replicas: 2
 
   selector:
@@ -27,7 +40,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 1
+      maxUnavailable: 0
 
   template:
     metadata:
@@ -48,6 +61,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: go-enviroment
+            - secretRef:
+                name: credentials
           env:
             - name: NODE_IP
               valueFrom:
@@ -60,7 +75,6 @@ spec:
             capabilities:
               drop:
                 - ALL
-
           ports:
             - containerPort: 8080
           resources:

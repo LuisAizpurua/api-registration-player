@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birria Futbol</title>
+  <link name="birria-futbol"  rel="icon" href="/public/favicon_64.png" type="image/png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px 48px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+    h1 {
+      font-size: 1.6rem;
+      text-align: center;
+      margin-bottom: 28px;
+      color: #1a1a2e;
+    }
+    h1 span { color: #2d9cdb; }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-size: .85rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      font-size: .95rem;
+      transition: border-color .2s;
+      outline: none;
+    }
+    input:focus { border-color: #2d9cdb; }
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #2d9cdb;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    button:hover { background: #1f7eb4; }
+    button:disabled {
+      background: #7fc4e8;
+      cursor: not-allowed;
+    }
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #fff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+    }
+    button.loading .spinner { display: inline-block; }
+    button.loading .btn-text { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>⚽ Birria de <span>Fútbol</span></h1>
+    <form id="myForm">
+      <div class="form-group">
+        <label for="name">Nombre completo</label>
+        <input type="text" id="name" name="name" placeholder="nombre" required
+               pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ ]{1,25}" maxlength="25"
+               title="Solo letras, máximo 25 caracteres">
+      </div>
+      <div class="form-group">
+        <label for="phone">Número de teléfono</label>
+        <input type="tel" id="phone" name="phone" placeholder="66554433" required
+               pattern="[0-9]{8}" maxlength="8"
+               title="Debe ser exactamente 8 dígitos">
+      </div>
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="example@dominio.com" required
+               title="Ingrese un correo válido (ej: nombre@dominio.com)">
+      </div>
+      <button type="submit" id="submitBtn">
+        <span class="spinner"></span>
+        <span class="btn-text">Inscribirse</span>
+      </button>
+    </form>
+  </div>
+</body>
+
+<div id="modal" style="display:none; background: red; color:white; padding:10px;">
+    Debes llenar los campos correctamente
+</div>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.classList.add("loading");
+
+    const formData = new FormData(this);
+
+    try {
+        const response = await fetch("/submit", {
+            method: "POST",
+            body: formData
+        });
+
+        const message = await response.text();
+
+        if (!response.ok) {
+            btn.disabled = false;
+            btn.classList.remove("loading");
+            const modal = document.getElementById("modal");
+            modal.style.display = "block";
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 3000);
+            return;
+        }
+
+        window.location.replace("/notification?type=ntf");
+    } catch (err) {
+        btn.disabled = false;
+        btn.classList.remove("loading");
+    }
+});
+</script>
+</html>
