@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: go-enviroment
 data:
-  SVC_PORT: "8090"
+  SVC_PORT: "8099"
   NAME: "MUTEDEVOPS_pty"
 ---
 apiVersion: v1

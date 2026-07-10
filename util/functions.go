@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/joho/godotenv"
 )
 
 var (
@@ -20,10 +19,10 @@ var (
 )
 
 func GetCredential() Credentials {
-	err := godotenv.Load()
-	if err != nil {
-		panic("No se pudo cargar .env")
-	}
+	//err := godotenv.Load()
+	//if err != nil {
+	//	panic("No se pudo cargar .env")
+	//}
 
 	return Credentials{
 		Email:    os.Getenv("EMAIL"),
@@ -32,10 +31,10 @@ func GetCredential() Credentials {
 }
 
 func Env() Environment {
-	err := godotenv.Load()
-	if err != nil {
-		panic("No se pudo cargar .env")
-	}
+	//err := godotenv.Load()
+	//if err != nil {
+	//	panic("No se pudo cargar .env")
+	//}
 
 	return Environment{
 		APIKEY:   os.Getenv("APIKEY"),
