@@ -45,7 +45,7 @@ func Env() Environment {
 }
 
 func GetUserBySessionID(sessionId string) (*http.Response, error) {
-	targetUrl := fmt.Sprintf("https://lvebgyjzcskmiqnthuua.supabase.co/rest/v1/users?session_id=eq.%s", sessionId)
+	targetUrl := fmt.Sprintf("https://%s.supabase.co/rest/v1/users?session_id=eq.%s", Env().ID, sessionId)
 	req, _ := http.NewRequest("GET", targetUrl, nil)
 	req.Header.Set("apikey", Env().APIKEY)
 	return Client.Do(req)

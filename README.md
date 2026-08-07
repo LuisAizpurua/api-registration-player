@@ -1,80 +1,104 @@
 <div align="center">
 
-```
+```text
 ███╗   ███╗██╗   ██╗████████╗███████╗██████╗ ███████╗██╗   ██╗
 ████╗ ████║██║   ██║╚══██╔══╝██╔════╝██╔══██╗██╔════╝██║   ██║
 ██╔████╔██║██║   ██║   ██║   █████╗  ██║  ██║█████╗  ██║   ██║
 ██║╚██╔╝██║██║   ██║   ██║   ██╔══╝  ██║  ██║██╔══╝  ╚██╗ ██╔╝
-██║ ╚═╝ ██║╚██████╔╝   ██║   ███████╗██████╔╝███████╗ ╚████╔╝ 
-╚═╝     ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚═════╝ ╚══════╝  ╚═══╝  
+██║ ╚═╝ ██║╚██████╔╝   ██║   ███████╗██████╔╝███████╗ ╚████╔╝
+╚═╝     ╚═╝ ╚═════╝    ╚═╝   ╚══════╝╚═════╝ ╚══════╝  ╚═══╝
+```
 
 </div>
 
-<br/>
+<br>
 
-<!-- ===== HERO IMAGE — replace the URL below with your banner ===== -->
 <p align="center">
-  <a href="https://github.com/tuusuario/turepo">
-    <img src="https://amzn-images-public.s3.us-east-1.amazonaws.com/images-edit-github/banner-github-golangapi.png" 
-         alt="Birria de Fútbol" 
+  <a href="https://github.com/LuisAizpurua/test">
+    <img src="https://amzn-images-public.s3.us-east-1.amazonaws.com/images-edit-github/banner-github-golangapi.png"
+         alt="Birria de Fútbol"
          width="100%">
   </a>
 </p>
-<!-- ===== END HERO ===== -->
+
+<h3 align="center">Inscripción online para birria de fútbol</h3>
 
 <p align="center">
-  <strong>Inscripción online para torneos de fútbol</strong>
-  <br/>
-  <sub>Registro seguro con Supabase</sub>
+  <a href="https://go.dev/doc/"><img src="https://img.shields.io/badge/Go-1.21+-00ADD8?logo=go&logoColor=white"></a>
+  <a href="https://supabase.com/docs"><img src="https://img.shields.io/badge/Supabase-REST-3ECF8E?logo=supabase&logoColor=white"></a>
+  <a href="https://docs.docker.com/"><img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white"></a>
+  <a href="https://kubernetes.io/docs/"><img src="https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=white"></a>
+  <a href="https://docs.github.com/actions"><img src="https://img.shields.io/badge/GitHub_Actions-2088FF?logo=githubactions&logoColor=white"></a>
+  <img src="https://img.shields.io/badge/license-MIT-yellow">
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Go-1.21+-00ADD8?logo=go&logoColor=white" alt="Go version">
-  <img src="https://img.shields.io/badge/Supabase-REST-3ECF8E?logo=supabase&logoColor=white" alt="Supabase">
-  <img src="https://img.shields.io/badge/license-MIT-yellow" alt="License">
-</p>
 
 ---
 
-## ✨ Características
+### 👨🏻‍💻 Instalaciones
 
-- 📋 Formulario de inscripción con validación
-- 🔐 Autenticación via Supabase (password grant + refresh token)
-- 🍪 Sesiones persistentes con cookie `session_id`
-- 🚫 Protección de rutas internas
-- 🗄️ Almacenamiento en Supabase REST API
+| Herramienta | Versión | Propósito |
+|-------------|---------|-----------|
+| [Go](https://go.dev/dl/) | 1.21+ | Compilar y ejecutar la aplicación |
+| [Docker Desktop](https://www.docker.com/products/docker-desktop/) | Última | Contenerizar la aplicación |
+| [Minikube](https://minikube.sigs.k8s.io/docs/start/) | Última | Cluster Kubernetes local |
+| [Kubectl](https://kubernetes.io/docs/tasks/tools/) | Última | CLI para gestionar Kubernetes desde terminal|
+| [ArgoCD CLI](https://argo-cd.readthedocs.io/en/stable/cli_installation/) | Última | Interaccion desde terminal con la UI argocd |
+
+> **Instalar ArgoCD en Minikube:**
+> ```bash
+> kubectl create namespace argocd
+> kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+> # Exponer el servidor via NodePort
+> kubectl patch svc argocd-server -n argocd -p '{"spec":{"type":"NodePort"}}'
+> # Obtener contraseña inicial del admin
+> kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+> ```
 
 ---
 
-## 🚀 Stack
+
+### 🚀 Stack tecnológico 
 
 | Capa | Tecnología |
 |------|-----------|
 | **Lenguaje** | Go 1.21+ |
-| **Base de datos** | Supabase (PostgreSQL via REST) |
+| **Base de datos** | supabase (PostgreSQL vía REST) |
 | **Templates** | `html/template` |
-| **Autenticación** | Supabase Auth |
+| **Docker** |  contenedor app |
+| **Minikube** |  clúster de kubernetes de un solo nodo local |
+| **Kubernetes** |  orquestador de contenedores |
+| **Argocd** |  entrega continua `CD` (GitOps) |
+| **GitHub Actions** |  integracion continua `CI` |
+---
+
+### ⚙️ Variables de entorno
+
+| Variable | Descripción |
+|----------|-------------|
+| `APIKEY` | Anon key de Supabase (Configuración → API) |
+| `ID` | ID del proyecto Supabase |
+| `SVC_PORT` | Puerto del servicio en Kubernetes (opcional) |
+| `NODE_IP` | IP del nodo Kubernetes (opcional) |
+| `EMAIL` | Correo usado para autenticación en Supabase Auth |
+| `PASSWORD` | Contraseña del usuario en Supabase Auth |
+
 
 ---
 
-## ⚙️ Variables de entorno
-
-```env
-APIKEY=tu_anon_key
-ID=tu_project_id
-SVC_PORT=8090
-NODE_IP=0.0.0.0
-email=usuario@ejemplo.com
-password=tu_contraseña
-```
-
----
-
-## 🏃 Inicio rápido
+### 🏃 Inicio rápido
 
 ```bash
+# 1. Clonar el repositorio
 git clone https://github.com/tuusuario/turepo.git
-cd test
+
+# 2. Configurar variables de entorno
+cp .env.example .env   # y completar con tus datos de Supabase
+
+# 3a. Ejecutar directamente (sin compilar)
+go run .
+
+# 3b. O compilar y ejecutar
 go build -o main . && ./main
 ```
 
@@ -82,41 +106,25 @@ Abre `http://localhost:8080` en tu navegador.
 
 ---
 
-## 🧭 Rutas
+### 🧭 Rutas
 
 | Ruta | Descripción |
 |------|-------------|
-| `/` | Página principal — crea cookie y redirige si ya estás registrado |
+| `/` | Página principal — muestra formulario, maneja cookie y redirige si ya estás registrado |
 | `/submit` | Envía los datos del formulario a Supabase |
-| `/notification` | Muestra mensajes dinámicos (solo acceso interno) |
-| `/health` | Health check → `{"status":"UP"}` |
+| `/notification` | Muestra mensajes de inscripcion (solo acceso interno) |
+| `/health` | Health check |
 
 ---
 
-## 📁 Estructura
+### 🔐 Seguridad
 
-```
-.
-├── main.go                 # Punto de entrada
-├── public/
-│   ├── index.html          # Formulario de inscripción
-│   └── notification.html   # Página de confirmación
-├── Dockerfile
-└── README.md
-```
-
----
-
-## 🔐 Seguridad
-
-- Las rutas `/notification` requieren el query param `?internal=true`
-- El token de Supabase se cachea con renovación automática via `refresh_token`
-- Cookie `session_id`: HttpOnly, Secure, SameSite=Strict, 1 año de expiración
+- **Middleware de sesión** — middleware global que verifica la cookie `session_id`, consulta la existencia del usuario en Supabase y redirige según su estado (evita doble registro o acceso no autorizado).
+- **Token cacheado con renovación** — `fetchToken` almacena el `access_token` y lo reutiliza mientras no expire. Cuando expira, lo renueva automáticamente mediante `refresh_token` sin reautenticar.
+- **Cookie `session_id`** — configurada con las flags `HttpOnly`, `Secure`, `SameSite=Strict` y expiración de 1 año.
 
 ---
 
 <div align="center">
-  <sub>Hecho con ❤️ por <strong>MuteDev</strong></sub>
-  <br/>
   <sub>© 2026 — Birria de Fútbol</sub>
 </div>

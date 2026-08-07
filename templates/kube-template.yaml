@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: go-enviroment
+  name: enviroment
 data:
-  SVC_PORT: "8099"
-  NAME: "MUTEDEVOPS_pty"
+  SVC_PORT: "8095"
+  NAME: "mutedev.pty"
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: credentials
 stringData:
-  APIKEY: sb_publishable_a8728I7obHYwwnUpDH9vpw_B1Zp_Xeo
-  ID: lvebgyjzcskmiqnthuua
-  EMAIL: moisesluis0403@gmail.com
-  PASSWORD: _Moises0403
+  APIKEY: apikey_supabase
+  ID: id_supabase
+  EMAIL: example@gmail.com
+  PASSWORD: pwd
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -54,13 +54,11 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-        - name: go-api
-          image: moises0403/golang-api:v3
+        - image: moises0403/golang-api:v3
           imagePullPolicy: Always
-
           envFrom:
             - configMapRef:
-                name: go-enviroment
+                name: enviroment
             - secretRef:
                 name: credentials
           env:
